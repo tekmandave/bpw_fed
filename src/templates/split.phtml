@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><?= $profile->nameFirst . ' ' . $profile->nameLast . ' - ' . $profile->Company->name;?></title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--
+    <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
+    <link href="images/webclip.jpg" rel="apple-touch-icon">
+-->
+    <style type="text/css">
+    :root{
+<?php foreach ($profile->css_variables as $css):?>
+        --<?= $css->css_var;?>: <?= $css->css_value;?>;
+<?php endforeach;?>
+    }
+    @media only screen and (min-width: 1024px){
+        .container-1{
+            display:flex;
+        }
+    }
+    @media only screen and (max-width: 600px){
+        .BOX1 {
+            overflow: show;
+            min-height:310px;
+        }
+        .BOX1 iframe {
+            position: absolute;
+            top:0;
+            left:0;
+            width:clamp(200px, 100%, 560px);
+        }
+    }
+    @media only screen and (min-width: 600px){
+        .BOX1{
+            display: flex;
+            flex:1;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+        .BOX2{
+            display:flex;
+            flex:1;
+            justify-content: center;
+            align-items: center;
+            flex-direction:column;
+        }
+    }
+    body {
+        margin:0px;
+    }
+    .container-1{
+        margin:0px;
+        padding:0px;
+    }
+    .BOX1{
+        background-color: var(--color-primary);
+    }
+    .BOX2{
+        padding:1em;
+    }
+    .BOX2 div{
+        border:1px var(--color-accent) solid;
+        border-radius: 11px;
+        margin-top: .5em;
+        margin-bottom: .5em;
+        width: clamp(50%, 100%, 100%)
+    }
+    .header{
+        background-color: var(--color-primary);
+        color: var(--color-text);
+        text-align:center;
+        border-radius: 11px;
+        font-size:2em;
+    }
+    .section {
+        margin-top: 1.5em;
+        margin-bottom: 2em;
+        width: clamp(50%, 100%, 100%)
+    }
+    </style>
+</head>
+<body class="body">
+
+<!-- CONTAINER -->
+    <div class="container-1">
+
+        <!-- BOX1 -->
+        <div class="BOX1">
+            <?php if(!$profile->YTEmbed == ''):?>
+            <div class="embeded_video"><?= $profile->YTEmbed;?></div>
+            <?php endif;?>
+        </div><!-- BOX1 -->
+
+        <!-- BOX2 -->
+        <div class="BOX2">
+            <div class="BOX2_1 section header">
+                <h2 class="section_title"><?= trim($profile->nameFirst . ' ' . $profile->nameLast);?></h2>
+                <p class="section_subtitle"><?= $profile->jobTitle;?></br>@ <?= $profile->Company->name;?></p>
+            </div><!-- BOX2_1 -->
+            <div class="BOX2_2 section">
+            <?php foreach ($profile->links as $link):?>
+                <div class="link">
+                    <i class="<?= $link->icon;?>"></i>
+                    <span class="link-label"><?= $link->label;?>: </span>
+                    <a href="<?= $link->url;?>" target="_blank"><?= $link->label;?></a>
+                </div>
+            <?php endforeach;?>
+            </div><!-- BOX2_2 -->
+            <div class="BOX2_3 section">
+                <h1>Here is some sample content to give it substance</h1>
+                <p>There is a bit of general paragraph text for good measure</p>
+            </div><!-- BOX2_3 -->
+        </div><!-- BOX2 -->
+    </div><!-- CONTAINER-1 -->
+
+    <div class="CONTAINER-2">
+    </div><!-- CONTAINER-2 -->
+</body>
+</html>
