@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <title><?= $profile->nameFirst . ' ' . $profile->nameLast . ' - ' . $profile->Company->name;?></title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/fa/css/all.min.css">
+  <script defer src="/fa/js/all.min.js"></script>
 <!--
     <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
     <link href="images/webclip.jpg" rel="apple-touch-icon">
@@ -39,6 +40,7 @@
             height: 100vh;
             justify-content: center;
             align-items: center;
+            flex-direction:column;
         }
         .BOX2{
             display:flex;
@@ -49,6 +51,7 @@
         }
     }
     body {
+        background-color: var(--color-dk-bg);
         margin:0px;
     }
     .container-1{
@@ -56,29 +59,56 @@
         padding:0px;
     }
     .BOX1{
-        background-color: var(--color-primary);
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        flex-direction:column;
+    }
+    .BOX1 div{
+        margin-top: .5em;
+        margin-bottom: .5em;
+        width: clamp(50%, 75%, 75%);
+        justify-content: center;
     }
     .BOX2{
+        background-color: var(--color-lt-bg);
         padding:1em;
     }
     .BOX2 div{
-        border:1px var(--color-accent) solid;
-        border-radius: 11px;
         margin-top: .5em;
         margin-bottom: .5em;
         width: clamp(50%, 100%, 100%)
     }
     .header{
         background-color: var(--color-primary);
-        color: var(--color-text);
+        color: var(--color-dk-text);
         text-align:center;
         border-radius: 11px;
         font-size:2em;
     }
     .section {
+        border:1px var(--color-lt-text) solid;
+        border-radius: 11px;
         margin-top: 1.5em;
         margin-bottom: 2em;
         width: clamp(50%, 100%, 100%)
+    }
+    .link-wrap {
+        display:flex;
+        align-items: center;
+    }
+    .link-icon{
+        flex:.5;
+        text-align:center;
+        font-size: 2em;
+    }
+    .link-link{
+        flex:4;
+        font-size: 1.5em;
+    }
+    .BIO{
+        color: var(--color-dk-text);
     }
     </style>
 </head>
@@ -92,6 +122,12 @@
             <?php if(!$profile->YTEmbed == ''):?>
             <div class="embeded_video"><?= $profile->YTEmbed;?></div>
             <?php endif;?>
+            <?php if($profile->bio):?>
+            <div class="BIO">
+                <h2><?= $profile->tagline;?></h2>
+                <p><?= $profile->bio;?></p>
+            </div><!-- BIO -->
+            <?php endif;?>
         </div><!-- BOX1 -->
 
         <!-- BOX2 -->
@@ -102,17 +138,18 @@
             </div><!-- BOX2_1 -->
             <div class="BOX2_2 section">
             <?php foreach ($profile->links as $link):?>
-                <div class="link">
-                    <i class="<?= $link->icon;?>"></i>
-                    <span class="link-label"><?= $link->label;?>: </span>
-                    <a href="<?= $link->url;?>" target="_blank"><?= $link->label;?></a>
+                <div class="link-wrap">
+                    <div class="link-icon">
+                        <?php if($link->icon): ?>
+                        <i class="<?= $link->icon;?>"></i>
+                        <?php endif;?>
+                    </div>
+                    <div class="link-link">
+                        <a href="<?= $link->href;?>" title="<?= $link->title;?>" target="_blank"><?= $link->linkText;?></a>
+                    </div>
                 </div>
             <?php endforeach;?>
             </div><!-- BOX2_2 -->
-            <div class="BOX2_3 section">
-                <h1>Here is some sample content to give it substance</h1>
-                <p>There is a bit of general paragraph text for good measure</p>
-            </div><!-- BOX2_3 -->
         </div><!-- BOX2 -->
     </div><!-- CONTAINER-1 -->
 
