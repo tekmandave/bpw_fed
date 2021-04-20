@@ -5,9 +5,13 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../vendor/autoload.php';
 
+$config = include('../config/config.php');
+
+/*
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 $config['api']['base'] = 'http://localhost:1337/';
+*/
 
 /* APP INIT */
 $app = new \Slim\App(['settings' => $config]);
